@@ -386,7 +386,7 @@
                     <div class="section notopmargin footer-stick">
                         <div class="container clearfix">
                             
-                            
+
 
                             <div id="section-rsvp" class="heading-block title-center topmargin page-section">
                                 <h2>Svar udbedes</h2>
@@ -396,6 +396,8 @@
                             </div>
                         </div>
                     </div>
+                    
+                    
 
 
                     <div class="section notopmargin footer-stick">
@@ -435,7 +437,7 @@
 
                                 <h2>Se ønskelisten</h2>
                     
-                                    <span>Reservere din gave nu</span>
+                                    <span>Reservere din gave nu </span>
                                     <br />
                                     <div id="list" class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 600px; margin:0 auto;text-align:left;">
                                         <div class="mdl-card__title">
