@@ -386,7 +386,7 @@
                     <div class="section notopmargin footer-stick">
                         <div class="container clearfix">
                             
-
+                            
 
                             <div id="section-rsvp" class="heading-block title-center topmargin page-section">
                                 <h2>Svar udbedes</h2>
@@ -396,8 +396,6 @@
                             </div>
                         </div>
                     </div>
-                    
-                    
 
 
                     <div class="section notopmargin footer-stick">
