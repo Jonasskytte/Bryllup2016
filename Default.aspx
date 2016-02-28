@@ -437,7 +437,11 @@
 
                                 <h2>Se ønskelisten</h2>
                     
+<<<<<<< HEAD
+                                    <span>Reservere din gave nu  </span>
+=======
                                     <span>Reservere din gave nu </span>
+>>>>>>> refs/remotes/origin/development
                                     <br />
                                     <div id="list" class="demo-card-wide mdl-card mdl-shadow--2dp" style="width: 600px; margin:0 auto;text-align:left;">
                                         <div class="mdl-card__title">
