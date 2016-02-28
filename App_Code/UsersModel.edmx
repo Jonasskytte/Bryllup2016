@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Bryllup2016Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Koebt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="WishlistId" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="30" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Wishlist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Navn" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Link" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Koebt" Type="bit" Nullable="false" />
+          <Property Name="Vaerdi" Type="int" Nullable="false" />
+          <Property Name="VaerdiKoebt" Type="int" Nullable="false" />
+          <Property Name="VaerdiEnhed" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Userid_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Koebt" Type="Self.Koebt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Koebt">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WishlistId_Wishlist">
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="1" />
+          <End Role="Koebt" Type="Self.Koebt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wishlist">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Koebt">
+              <PropertyRef Name="WishlistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Bryllup2016ModelStoreContainer">
+          <EntitySet Name="Koebt" EntityType="Self.Koebt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wishlist" EntityType="Self.Wishlist" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Userid_Users" Association="Self.FK_Userid_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Koebt" EntitySet="Koebt" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishlistId_Wishlist" Association="Self.FK_WishlistId_Wishlist">
+            <End Role="Wishlist" EntitySet="Wishlist" />
+            <End Role="Koebt" EntitySet="Koebt" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Bryllup2016Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Koebts" Relationship="Bryllup2016Model.FK_Userid_Users" FromRole="User" ToRole="Koebt" />
+        </EntityType>
+        <EntityContainer Name="Bryllup2016Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Koebts" EntityType="Bryllup2016Model.Koebt" />
+          <EntitySet Name="Wishlists" EntityType="Bryllup2016Model.Wishlist" />
+          <AssociationSet Name="FK_Userid_Users" Association="Bryllup2016Model.FK_Userid_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Koebt" EntitySet="Koebts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishlistId_Wishlist" Association="Bryllup2016Model.FK_WishlistId_Wishlist">
+            <End Role="Wishlist" EntitySet="Wishlists" />
+            <End Role="Koebt" EntitySet="Koebts" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Koebt">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="WishlistId" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="Bryllup2016Model.FK_Userid_Users" FromRole="Koebt" ToRole="User" />
+          <NavigationProperty Name="Wishlist" Relationship="Bryllup2016Model.FK_WishlistId_Wishlist" FromRole="Koebt" ToRole="Wishlist" />
+        </EntityType>
+        <EntityType Name="Wishlist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Navn" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Link" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Koebt" Type="Boolean" Nullable="false" />
+          <Property Name="Vaerdi" Type="Int32" Nullable="false" />
+          <Property Name="VaerdiKoebt" Type="Int32" Nullable="false" />
+          <Property Name="VaerdiEnhed" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Koebts" Relationship="Bryllup2016Model.FK_WishlistId_Wishlist" FromRole="Wishlist" ToRole="Koebt" />
+        </EntityType>
+        <Association Name="FK_Userid_Users">
+          <End Type="Bryllup2016Model.User" Role="User" Multiplicity="1" />
+          <End Type="Bryllup2016Model.Koebt" Role="Koebt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Koebt">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WishlistId_Wishlist">
+          <End Type="Bryllup2016Model.Wishlist" Role="Wishlist" Multiplicity="1" />
+          <End Type="Bryllup2016Model.Koebt" Role="Koebt" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wishlist">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Koebt">
+              <PropertyRef Name="WishlistId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Bryllup2016ModelStoreContainer" CdmEntityContainer="Bryllup2016Entities">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Bryllup2016Model.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Koebts">
+            <EntityTypeMapping TypeName="Bryllup2016Model.Koebt">
+              <MappingFragment StoreEntitySet="Koebt">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="WishlistId" ColumnName="WishlistId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wishlists">
+            <EntityTypeMapping TypeName="Bryllup2016Model.Wishlist">
+              <MappingFragment StoreEntitySet="Wishlist">
+                <ScalarProperty Name="VaerdiEnhed" ColumnName="VaerdiEnhed" />
+                <ScalarProperty Name="VaerdiKoebt" ColumnName="VaerdiKoebt" />
+                <ScalarProperty Name="Vaerdi" ColumnName="Vaerdi" />
+                <ScalarProperty Name="Koebt" ColumnName="Koebt" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Navn" ColumnName="Navn" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
